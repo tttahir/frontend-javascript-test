@@ -1,18 +1,11 @@
-const starsMap = {
-  1: "★☆☆☆☆",
-  2: "★★☆☆☆",
-  3: "★★★☆☆",
-  4: "★★★★☆",
-  5: "★★★★★",
-};
+const stars = ["★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★"];
 
 function drawRating(vote) {
   if (vote < 0 || vote > 100) throw new Error("Данные некорректны");
 
-  const stars = Math.ceil(vote / 20);
-  const pos = stars === 0 ? 1 : stars;
+  const pos = Math.max(Math.ceil(vote / 20) - 1, 0);
 
-  return starsMap[pos];
+  return stars[pos];
 }
 
 // Проверка работы результата
