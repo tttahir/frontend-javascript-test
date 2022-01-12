@@ -1,5 +1,5 @@
 function removeExtraChars(string) {
-  return string.replace(/[^а-я]/g, "");
+  return string.replace(/[^а-яё]/g, "");
 }
 
 function sortString(string) {
