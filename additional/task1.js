@@ -8,11 +8,15 @@ const banners = [
 ];
 
 function getRandomBanner(banners) {
-  const nums = banners.map(({ weight }) => Math.floor(Math.random() * weight));
-  const maxNum = Math.max.apply(null, nums);
-  const index = nums.indexOf(maxNum);
+  let weights = [];
+  let randomSum =
+    banners.reduce((acc, { weight }) => {
+      acc += weight;
+      weights.push(acc);
+      return acc;
+    }, 0) * Math.random();
 
-  return banners[index];
+  return banners[weights.findIndex((weight) => randomSum <= weight)];
 }
 
 console.log(getRandomBanner(banners)); // рандомный баннер из списка

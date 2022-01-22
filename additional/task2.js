@@ -4,8 +4,16 @@
  * @param {() => Promise} handler обработчик, который возвращает промис
  * @return {Promise}
  */
-function map(arr, count, handler) {
-  const promises = arr.slice(0, count - 1).map((item) => handler(item));
+function map(array, count, handler) {
+  const promises = [];
+  const iterator = array.values();
+  const wrap = (item) =>
+    item && handler(item).then(() => wrap(iterator.next().value));
+
+  for (let i = 0; i < count; i++) {
+    promises.push(wrap(iterator.next().value));
+  }
+
   return Promise.all(promises);
 }
 
